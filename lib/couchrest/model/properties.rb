@@ -159,11 +159,13 @@ module CouchRest
               type.class_eval { yield type }
               type = [type] # inject as an array
             end
+            validation_options = {}
+            validation_options[:message] = options.delete(:message) if options[:message]
             property = Property.new(name, type, options)
             create_property_getter(property)
             create_property_setter(property) unless property.read_only == true
             if property.type_class.respond_to?(:validates_casted_model)
-              validates_casted_model property.name
+              validates_casted_model property.name, validation_options
             end
             properties << property
             property

@@ -284,6 +284,20 @@ describe CouchRest::Model::CastedModel do
         @toy2.errors.should be_empty
         @toy3.errors.should_not be_empty
       end
+
+      it "should use custom error message when specified" do
+        @cat.should_not be_valid
+        @cat.errors[:toys].should have(1).element
+        @cat.errors[:toys].first.should == "gotta have 'em"
+      end
+
+      it "should default error message when none is specified" do
+        @toy2.name = "Twine"
+        @toy3.name = "Bell"
+        @cat.should_not be_valid
+        @cat.errors[:favorite_toy].should have(1).element
+        @cat.errors[:favorite_toy].first.should match /invalid/
+      end
     end
 
     describe "on a casted model property" do
