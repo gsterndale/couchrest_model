@@ -12,7 +12,7 @@ class Cat < CouchRest::Model::Base
   use_database DB
 
   property :name, :accessible => true
-  property :toys, [CatToy], :default => [], :accessible => true
+  property :toys, [CatToy], :default => [], :accessible => true, :message => "gotta have 'em"
   property :favorite_toy, CatToy, :accessible => true
   property :number
 end
