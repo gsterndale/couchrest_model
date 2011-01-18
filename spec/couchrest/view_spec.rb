@@ -271,12 +271,12 @@ describe "Model views" do
     end
     it "should get first" do
       u = Unattached.first :database=>@db
-      u.title.should =~ /\A...\z/
+      u.should == Unattached.all(:database=>@db).first
     end
     
     it "should get last" do
       u = Unattached.last :database=>@db
-      u.title.should == "aaa"
+      u.should == Unattached.all(:database=>@db).last
     end
     
     it "should barf on all_design_doc_versions if no database given" do
